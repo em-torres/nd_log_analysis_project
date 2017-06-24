@@ -11,7 +11,7 @@ def connect():
     return psycopg2.connect("dbname=tournament")
 
 
-def deleteMatches():
+def delete_matches():
     """Remove all the match records from the database."""
     with connect() as db:
         c = db.cursor()
@@ -19,7 +19,7 @@ def deleteMatches():
         db.commit()
 
 
-def deletePlayers():
+def delete_players():
     """Remove all the player records from the database."""
     with connect() as db:
         c = db.cursor()
@@ -27,7 +27,7 @@ def deletePlayers():
         db.commit()
 
 
-def countPlayers():
+def count_players():
     """Returns the number of players currently registered."""
     with connect() as db:
         c = db.cursor()
@@ -36,7 +36,7 @@ def countPlayers():
     return players_count
 
 
-def registerPlayer(name):
+def register_player(name):
     """Adds a player to the tournament database.
   
     The database assigns a unique serial id number for the player.  (This
@@ -51,7 +51,7 @@ def registerPlayer(name):
         db.commit()
 
 
-def playerStandings():
+def player_standings():
     """Returns a list of the players and their win records, sorted by wins.
 
     The first entry in the list should be the player in first place, or a player
@@ -71,7 +71,7 @@ def playerStandings():
     return standings
 
 
-def reportMatch(winner, loser):
+def report_match(winner, loser):
     """Records the outcome of a single match between two players.
 
     Args:
@@ -84,7 +84,7 @@ def reportMatch(winner, loser):
         db.commit()
  
  
-def swissPairings():
+def swiss_pairings():
     """Returns a list of pairs of players for the next round of a match.
   
     Assuming that there are an even number of players registered, each player
@@ -99,5 +99,10 @@ def swissPairings():
         id2: the second player's unique id
         name2: the second player's name
     """
+    with connect() as db:
+        c = db.cursor()
+        c.execute("SELECT * FROM pl_pairs;")
+        pairings = c.fetchall()
+    return pairings
 
 
