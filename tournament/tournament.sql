@@ -9,14 +9,14 @@
 -- Creating table Players
 CREATE TABLE players (
     id        serial PRIMARY KEY,
-    name      text,
+    name      text
 );
 
 -- Creating table Matches
 CREATE TABLE matches (
     id      serial PRIMARY KEY,
     winner  integer REFERENCES players(id),
-    loser   integer REFERENCES players(id),
+    loser   integer REFERENCES players(id)
 );
 
 -- Creating View for Player Standings
